@@ -4,6 +4,7 @@ import Root from '../Pages/Root/Root';
 import Home from '../Pages/Home/Home';
 import Apps from '../Pages/Apps/Apps';
 import Installation from '../Pages/Installation/Installation';
+import Banner1 from '../Pages/Banner/Banner1';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             path:"/installation",
             Component:Installation
         },
+        // {
+        //     path:"/",
+        //     Component:Banner1
+        // },
     ]
   },
 ]);

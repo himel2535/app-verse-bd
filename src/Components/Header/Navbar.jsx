@@ -61,13 +61,15 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <NavLink
-          to="https://github.com/himel2535"
-          className="btn bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
+        <a
+          href="https://github.com/himel2535"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn flex items-center gap-2 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
         >
-          <img src={githubLogo} alt="" />
+          <img src={githubLogo} alt="GitHub Logo" className="w-5 h-5" />
           <span>Contribute</span>
-        </NavLink>
+        </a>
       </div>
     </div>
   );
