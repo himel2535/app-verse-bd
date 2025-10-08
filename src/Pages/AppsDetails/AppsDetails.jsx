@@ -23,16 +23,28 @@ const AppsDetails = () => {
     reviews,
     ratingAvg,
     downloads,
-    ratings,
+    // ratings,
   } = app;
 
   const handleInstall=()=>{
 
-    const existingList=localStorage.getItem("installedList")
+    const existingList=JSON.parse(localStorage.getItem("installedList"))
 
-    console.log(existingList)
+    let updatedList=[]
 
-    // localStorage.setItem("installedList",JSON.stringify(app))
+    if(existingList){
+
+        const isDuplicate=existingList.some(a=>a.id===app.id)
+
+        if(isDuplicate) return alert('sorry this is already installed')
+
+      updatedList=[...existingList,app]
+    }
+    else{
+      updatedList.push(app)
+    }
+
+    localStorage.setItem("installedList",JSON.stringify(updatedList))
   }
 
   return (
