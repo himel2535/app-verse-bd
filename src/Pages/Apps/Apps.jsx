@@ -1,17 +1,38 @@
 import React, { useState } from "react";
 import useApps from "../../Hooks/useApps";
 import TrendingAppsCards from "../TrendingApps/TrendingAppsCards";
+import LoadingPage from "../LoadingPage/LoadingPage";
+import ErrorPage from "../Error Page/ErrorPage";
 
 const Apps = () => {
-  const { apps } = useApps();
+  const { apps, loading, error } = useApps();
 
   const [search, setSearch] = useState("");
+
+  const [searchLoading, setSearchLoading] = useState(false);
+
+  const [timeoutId, setTimeoutId] = useState(null);
 
   const term = search.trim().toLowerCase();
 
   const searchedApps = term
     ? apps.filter((app) => app.title.toLowerCase().includes(term))
     : apps;
+
+  if (loading) return <LoadingPage></LoadingPage>;
+  if (error) return <ErrorPage></ErrorPage>;
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+    setSearchLoading(true);
+
+    if (timeoutId) clearTimeout(timeoutId);
+    const id = setTimeout(() => {
+      setSearchLoading(false);
+    }, 300);
+    setTimeoutId(id);
+  };
 
   return (
     <div className="my-7 ">
@@ -22,23 +43,31 @@ const Apps = () => {
         </p>
       </div>
       <div className="flex justify-between items-center mb-4">
-        <h1 className="font-semibold text-lg">({searchedApps.length}) Apps Found</h1>
+        <h1 className="font-semibold text-lg">
+          ({searchedApps.length}) Apps Found
+        </h1>
 
         {/* Search box */}
         <label className="input">
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearch}
             type="search"
             placeholder="Search Apps"
           />
         </label>
       </div>
 
-      <div className="mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="relative mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {searchedApps.map((app) => (
-          <TrendingAppsCards key={app.id} app={app}></TrendingAppsCards>
+          <TrendingAppsCards key={app.id} app={app} />
         ))}
+
+        {searchLoading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-white/70 z-50">
+            <LoadingPage />
+          </div>
+        )}
       </div>
     </div>
   );

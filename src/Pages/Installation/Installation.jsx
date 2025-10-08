@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import downloadLogo from "../../assets/icon-downloads.png";
 import ratingAvg from "../../assets/icon-ratings.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Installation = () => {
   const [installedList, setInstalledList] = useState([]);
@@ -13,11 +15,19 @@ const Installation = () => {
     if (savedList) setInstalledList(savedList);
   }, []);
 
+  if (!installedList.length) {
+    return <h1 className="font-bold text-6xl text-center items-center">Apps Not Found</h1>
+  }
+
   const sortItem = (() => {
-    if (sortOrder == "size-asc") {
-      return [...installedList].sort((a, b) => a.size - b.size);
-    } else if (sortOrder == "size-desc") {
-      return [...installedList].sort((a, b) => b.size - a.size);
+    if (sortOrder == "downloads-asc") {
+      return [...installedList].sort(
+        (a, b) => parseInt(a.downloads) - parseInt(b.downloads)
+      );
+    } else if (sortOrder == "downloads-desc") {
+      return [...installedList].sort(
+        (a, b) => parseInt(b.downloads) - parseInt(a.downloads)
+      );
     } else {
       return installedList;
     }
@@ -28,9 +38,14 @@ const Installation = () => {
 
     let updatedList = existingList.filter((p) => p.id !== id);
 
-    setInstalledList(updatedList)
+    setInstalledList(updatedList);
 
     localStorage.setItem("installedList", JSON.stringify(updatedList));
+
+    toast("Uninstalled This App", {
+      position: "top-center",
+      autoClose: 1000,
+    });
   };
 
   return (
@@ -46,9 +61,9 @@ const Installation = () => {
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
           >
-            <option value="none">Sort By Size</option>
-            <option value="size-asc">Low-High</option>
-            <option value="size-desc">High-Low</option>
+            <option value="none">Sort By Downloads</option>
+            <option value="downloads-asc">Low-High</option>
+            <option value="downloads-desc">High-Low</option>
           </select>
         </label>
       </div>
@@ -97,6 +112,7 @@ const Installation = () => {
           </div>
         ))}
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

@@ -1,13 +1,9 @@
 import React from "react";
-import logo from "../../assets/Vector (1).png";
 
 const LoadingPage = () => {
   return (
-    <div>
-      <h1 className="flex items-center">
-        <span>L</span><img className="w-8 h-8 inline-block" src={logo} alt="o" />
-        <span>ading</span>
-      </h1>
+    <div className="flex flex-col justify-center items-center min-h-screen">
+      <progress className="progress w-56"></progress>
     </div>
   );
 };

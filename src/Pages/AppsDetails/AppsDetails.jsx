@@ -7,11 +7,14 @@ import avgRatingLogo from "../../assets/icon-ratings.png";
 import reviewsLogo from "../../assets/icon-review.png";
 
 import Carts from "../Charts/Carts";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ErrorPage from "../Error Page/ErrorPage";
 
 const AppsDetails = () => {
   const { id } = useParams();
 
-  const { apps, loading } = useApps();
+  const { apps, loading,error } = useApps();
 
   const app = apps.find((a) => String(a.id) === id) || {};
 
@@ -27,6 +30,7 @@ const AppsDetails = () => {
   }, [app.id]);
 
   if (loading) return <LoadingPage></LoadingPage>;
+  if(error) return <ErrorPage></ErrorPage>
   const {
     title,
     image,
@@ -40,7 +44,8 @@ const AppsDetails = () => {
   } = app;
 
   const handleInstall = () => {
-    const existingList = JSON.parse(localStorage.getItem("installedList")) || [];
+    const existingList =
+      JSON.parse(localStorage.getItem("installedList")) || [];
 
     const alreadyInstalled = existingList.some((a) => a.id === app.id);
     if (alreadyInstalled) return;
@@ -48,6 +53,11 @@ const AppsDetails = () => {
     const updatedList = [...existingList, app];
     localStorage.setItem("installedList", JSON.stringify(updatedList));
     setIsInstalled(true);
+
+    toast("Installed", {
+      position: "top-center",
+      autoClose: 1000,
+    });
   };
 
   return (
@@ -113,6 +123,7 @@ const AppsDetails = () => {
           <span className="text-gray-500">{description}</span>
         </h3>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
