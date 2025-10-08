@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useApps from "../../Hooks/useApps";
 import LoadingPage from "../LoadingPage/LoadingPage";
@@ -15,6 +15,17 @@ const AppsDetails = () => {
 
   const app = apps.find((a) => String(a.id) === id) || {};
 
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const existingList =
+      JSON.parse(localStorage.getItem("installedList")) || [];
+    const alreadyInstalled = existingList.some((a) => a.id === app.id);
+    if (alreadyInstalled) {
+      setIsInstalled(true);
+    }
+  }, [app.id]);
+
   if (loading) return <LoadingPage></LoadingPage>;
   const {
     title,
@@ -28,24 +39,15 @@ const AppsDetails = () => {
     ratings,
   } = app;
 
-  console.log(ratings);
-
   const handleInstall = () => {
-    const existingList = JSON.parse(localStorage.getItem("installedList"));
+    const existingList = JSON.parse(localStorage.getItem("installedList")) || [];
 
-    let updatedList = [];
+    const alreadyInstalled = existingList.some((a) => a.id === app.id);
+    if (alreadyInstalled) return;
 
-    if (existingList) {
-      const isDuplicate = existingList.some((a) => a.id === app.id);
-
-      if (isDuplicate) return alert("sorry this is already installed");
-
-      updatedList = [...existingList, app];
-    } else {
-      updatedList.push(app);
-    }
-
+    const updatedList = [...existingList, app];
     localStorage.setItem("installedList", JSON.stringify(updatedList));
+    setIsInstalled(true);
   };
 
   return (
@@ -87,8 +89,14 @@ const AppsDetails = () => {
             </div>
           </div>
           <div className="card-actions ">
-            <button onClick={() => handleInstall()} className="btn btn-primary">
-              Install Now ({size}mb)
+            <button
+              onClick={handleInstall}
+              className={`btn ${
+                isInstalled ? "btn-success cursor-not-allowed" : "btn-primary"
+              }`}
+              disabled={isInstalled}
+            >
+              {isInstalled ? "Installed" : `Install Now (${size}mb)`}
             </button>
           </div>
         </div>
