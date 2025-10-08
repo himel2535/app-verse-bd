@@ -3,20 +3,39 @@ import downloadLogo from "../../assets/icon-downloads.png";
 import ratingAvg from "../../assets/icon-ratings.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import appsNotFound from "../../assets/App-Error.png";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 const Installation = () => {
   const [installedList, setInstalledList] = useState([]);
 
   const [sortOrder, setSortOrder] = useState("none");
 
-  useEffect(() => {
-    const savedList = JSON.parse(localStorage.getItem("installedList"));
+  const [loading, setLoading] = useState(true);
 
-    if (savedList) setInstalledList(savedList);
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      const savedList = JSON.parse(localStorage.getItem("installedList")) || [];
+      setInstalledList(savedList);
+      setLoading(false);
+    }, 700);
+
+    return () => clearTimeout(timer);
   }, []);
 
+  if (loading) return <LoadingPage></LoadingPage>;
+
   if (!installedList.length) {
-    return <h1 className="font-bold text-6xl text-center items-center">Apps Not Found</h1>
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <img src={appsNotFound} alt="" />{" "}
+        <h1 className="font-bold text-3xl text-center items-center mt-6">
+          You have not installed any apps yet
+        </h1>
+      </div>
+    );
   }
 
   const sortItem = (() => {

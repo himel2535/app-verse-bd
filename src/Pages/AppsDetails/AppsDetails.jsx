@@ -10,27 +10,40 @@ import Carts from "../Charts/Carts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorPage from "../Error Page/ErrorPage";
+import appsError from "../../assets/App-Error.png";
 
 const AppsDetails = () => {
   const { id } = useParams();
 
-  const { apps, loading,error } = useApps();
+  const { apps, loading, error } = useApps();
 
-  const app = apps.find((a) => String(a.id) === id) || {};
+  const app = apps.find((a) => String(a.id) === id);
 
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
+    if (!app) return;
     const existingList =
       JSON.parse(localStorage.getItem("installedList")) || [];
     const alreadyInstalled = existingList.some((a) => a.id === app.id);
     if (alreadyInstalled) {
       setIsInstalled(true);
     }
-  }, [app.id]);
+  }, [app]);
 
   if (loading) return <LoadingPage></LoadingPage>;
-  if(error) return <ErrorPage></ErrorPage>
+  if (error) return <ErrorPage></ErrorPage>;
+
+  if (!app) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-screen">
+        <img src={appsError} alt="" />
+        <h1 className="font-semibold text-4xl text-center my-5">
+          Not Found This App
+        </h1>
+      </div>
+    );
+  }
   const {
     title,
     image,
@@ -71,8 +84,6 @@ const AppsDetails = () => {
             <h2 className="card-title">{title}</h2>
             <p className="mb-3 pb-4 pt-1">Developed By : {companyName}</p>
           </div>
-
-          {/* dnld,rtng,rvw */}
           <div className="flex md:gap-15 gap-10 lg:gap-30 my-2">
             <div>
               <img
@@ -102,7 +113,9 @@ const AppsDetails = () => {
             <button
               onClick={handleInstall}
               className={`btn ${
-                isInstalled ? "btn-success cursor-not-allowed" : "btn-primary"
+                isInstalled
+                  ? "btn-success cursor-not-allowed "
+                  : "bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
               }`}
               disabled={isInstalled}
             >

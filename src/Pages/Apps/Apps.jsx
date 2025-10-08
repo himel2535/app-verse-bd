@@ -3,6 +3,7 @@ import useApps from "../../Hooks/useApps";
 import TrendingAppsCards from "../TrendingApps/TrendingAppsCards";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ErrorPage from "../Error Page/ErrorPage";
+import AppsNotFound from "../../assets/App-Error.png"
 
 const Apps = () => {
   const { apps, loading, error } = useApps();
@@ -58,10 +59,19 @@ const Apps = () => {
         </label>
       </div>
 
-      <div className="relative mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {searchedApps.map((app) => (
-          <TrendingAppsCards key={app.id} app={app} />
-        ))}
+      <div className="mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative">
+        {searchedApps.length === 0 && !searchLoading ? (
+          <div className="col-span-full items-center flex flex-col text-gray-500 text-lg">
+            <img src={AppsNotFound} alt="" />
+            <h1 className="font-bold text-4xl text-center text-black mb-3 mt-5">OPPS!! APP NOT FOUND</h1>
+            <p>The App you are requesting is not found on our system.  please try another apps</p>
+
+          </div>
+        ) : (
+          searchedApps.map((app) => (
+            <TrendingAppsCards key={app.id} app={app} />
+          ))
+        )}
 
         {searchLoading && (
           <div className="absolute inset-0 flex justify-center items-center bg-white/70 z-50">

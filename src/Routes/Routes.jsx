@@ -6,6 +6,7 @@ import Apps from '../Pages/Apps/Apps';
 import Installation from '../Pages/Installation/Installation';
 import Banner1 from '../Pages/Banner/Banner1';
 import AppsDetails from '../Pages/AppsDetails/AppsDetails';
+import NotFound from '../Pages/NotFound/NotFound';
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
         {
             path:"/app/:id",
             Component:AppsDetails
+        },
+        {
+            path:"*",
+            Component:NotFound
         },
 
     ]
