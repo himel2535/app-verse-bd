@@ -23,6 +23,16 @@ const Installation = () => {
     }
   })();
 
+  const handleUnInstall = (id) => {
+    const existingList = JSON.parse(localStorage.getItem("installedList"));
+
+    let updatedList = existingList.filter((p) => p.id !== id);
+
+    setInstalledList(updatedList)
+
+    localStorage.setItem("installedList", JSON.stringify(updatedList));
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-5">
@@ -76,7 +86,10 @@ const Installation = () => {
               </div>
               {/* ------Button------ */}
               <div className="flex items-center">
-                <button className="btn btn-primary bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white">
+                <button
+                  onClick={() => handleUnInstall(p.id)}
+                  className="btn btn-primary bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
+                >
                   Uninstall
                 </button>
               </div>
