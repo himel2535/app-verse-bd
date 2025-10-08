@@ -90,7 +90,10 @@ const Installation = () => {
 
       <div className="space-y-3">
         {sortItem.map((p) => (
-          <div className="card card-side bg-base-100 shadow-sm items-center">
+          <div
+            key={p.id}
+            className="card card-side bg-base-100 shadow-sm items-center"
+          >
             <figure>
               <img
                 className="h-28 w-40 object-cover"
@@ -102,7 +105,7 @@ const Installation = () => {
             <div className="flex justify-between items-center w-full px-4">
               <div className="space-y-2">
                 <h2 className="card-title">{p.title}</h2>
-                <div className="flex items-center ">
+                <div className="flex flex-col md:flax-row items-start md:items-center ">
                   <div className="flex items-center">
                     <img
                       className="w-1/5 h-1/5 mr-1"
@@ -111,7 +114,7 @@ const Installation = () => {
                     />
                     <p className="text-base-content/70">{p.downloads}</p>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex  items-center">
                     <img className="w-1/5 h-1/5 mr-1" src={ratingAvg} alt="" />
                     <p className="text-base-content/70">{p.ratingAvg}</p>
                   </div>
