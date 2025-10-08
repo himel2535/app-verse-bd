@@ -6,13 +6,15 @@ import downloadsLogo from "../../assets/icon-downloads.png";
 import avgRatingLogo from "../../assets/icon-ratings.png";
 import reviewsLogo from "../../assets/icon-review.png";
 
+import Carts from "../Charts/Carts";
+
 const AppsDetails = () => {
   const { id } = useParams();
 
   const { apps, loading } = useApps();
 
   const app = apps.find((a) => String(a.id) === id) || {};
-  
+
   if (loading) return <LoadingPage></LoadingPage>;
   const {
     title,
@@ -23,29 +25,28 @@ const AppsDetails = () => {
     reviews,
     ratingAvg,
     downloads,
-    // ratings,
+    ratings,
   } = app;
 
-  const handleInstall=()=>{
+  console.log(ratings);
 
-    const existingList=JSON.parse(localStorage.getItem("installedList"))
+  const handleInstall = () => {
+    const existingList = JSON.parse(localStorage.getItem("installedList"));
 
-    let updatedList=[]
+    let updatedList = [];
 
-    if(existingList){
+    if (existingList) {
+      const isDuplicate = existingList.some((a) => a.id === app.id);
 
-        const isDuplicate=existingList.some(a=>a.id===app.id)
+      if (isDuplicate) return alert("sorry this is already installed");
 
-        if(isDuplicate) return alert('sorry this is already installed')
-
-      updatedList=[...existingList,app]
+      updatedList = [...existingList, app];
+    } else {
+      updatedList.push(app);
     }
-    else{
-      updatedList.push(app)
-    }
 
-    localStorage.setItem("installedList",JSON.stringify(updatedList))
-  }
+    localStorage.setItem("installedList", JSON.stringify(updatedList));
+  };
 
   return (
     <div>
@@ -86,13 +87,18 @@ const AppsDetails = () => {
             </div>
           </div>
           <div className="card-actions ">
-            <button onClick={()=>handleInstall()} className="btn btn-primary">Install Now ({size}mb)</button>
+            <button onClick={() => handleInstall()} className="btn btn-primary">
+              Install Now ({size}mb)
+            </button>
           </div>
         </div>
       </div>
+
+      {/* ----Bar Charts----- */}
       <div className="my-7 py-6 border-y">
-        <h1>Recharts</h1>
+        <Carts ratings={ratings}></Carts>
       </div>
+      {/* ----Description---- */}
       <div>
         <h3>
           <span className="font-semibold text-xl">Description</span> <br />{" "}
