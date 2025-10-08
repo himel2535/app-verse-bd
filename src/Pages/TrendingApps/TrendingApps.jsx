@@ -1,11 +1,14 @@
 import React from "react";
-import { Link, useLoaderData } from "react-router";
+import { Link, } from "react-router";
 import TrendingAppsCards from "./TrendingAppsCards";
+import useApps from "../../Hooks/useApps";
 
 const TrendingApps = () => {
-  const apps = useLoaderData();
+  const allApps=useApps()
+  const {apps,loading,error}=allApps
+
   const featuredApps=apps.slice(0,8)
-  // console.log(apps)
+
   return (
     <div className="my-7 text-center">
       <h1 className="font-semibold text-2xl mb-1">Trending Apps</h1>

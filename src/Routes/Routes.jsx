@@ -5,6 +5,7 @@ import Home from '../Pages/Home/Home';
 import Apps from '../Pages/Apps/Apps';
 import Installation from '../Pages/Installation/Installation';
 import Banner1 from '../Pages/Banner/Banner1';
+import AppsDetails from '../Pages/AppsDetails/AppsDetails';
 
 export const router = createBrowserRouter([
   {
@@ -15,8 +16,7 @@ export const router = createBrowserRouter([
             index:true,
             path:"/",
             hydrateFallbackElement:<p>Loading...</p>,
-            Component:Home,
-            loader:()=>fetch("bdapps.json")
+            Component:Home
         },
         {
             path:"/apps",
@@ -26,10 +26,11 @@ export const router = createBrowserRouter([
             path:"/installation",
             Component:Installation
         },
-        // {
-        //     path:"/",
-        //     Component:Banner1
-        // },
+        {
+            path:"/app/:id",
+            Component:AppsDetails
+        },
+
     ]
   },
 ]);
