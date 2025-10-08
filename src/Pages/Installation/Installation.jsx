@@ -105,7 +105,7 @@ const Installation = () => {
             <div className="flex justify-between items-center w-full px-4">
               <div className="space-y-2">
                 <h2 className="card-title">{p.title}</h2>
-                <div className="flex flex-col md:flax-row items-start md:items-center ">
+                <div className="flex   items-center ">
                   <div className="flex items-center">
                     <img
                       className="w-1/5 h-1/5 mr-1"
