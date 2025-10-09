@@ -112,20 +112,20 @@ const Installation = () => {
                       src={downloadLogo}
                       alt=""
                     />
-                    <p className="text-base-content/70">{p.downloads}</p>
+                    <p className="text-base-content/70 md:text-base text-sm">{p.downloads}</p>
                   </div>
                   <div className="flex  items-center">
                     <img className="w-1/5 h-1/5 mr-1" src={ratingAvg} alt="" />
-                    <p className="text-base-content/70">{p.ratingAvg}</p>
+                    <p className="text-base-content/70 md:text-base text-sm">{p.ratingAvg}</p>
                   </div>
-                  <p className="text-base-content/70">{p.size} MB</p>
+                  <p className="text-base-content/70 md:text-base text-sm">{p.size} MB</p>
                 </div>
               </div>
               {/* ------Button------ */}
               <div className="flex items-center">
                 <button
                   onClick={() => handleUnInstall(p.id)}
-                  className="btn btn-primary  bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
+                  className="btn btn-primary  bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white md:text-base text-sm"
                   
                 >
                   Uninstall
