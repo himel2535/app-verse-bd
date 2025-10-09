@@ -102,10 +102,10 @@ const Installation = () => {
               />
             </figure>
 
-            <div className="flex justify-between items-center w-full px-4">
-              <div className="space-y-2">
-                <h2 className="card-title">{p.title}</h2>
-                <div className="flex flex-col md:flex-row  md:items-center items-start ">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full px-4 ">
+              <div className="md:space-y-2 space-y-1 flex flex-col  items-center md:items-start">
+                <h2 className="card-title text-center md:text-start">{p.title}</h2>
+                <div className="flex  items-center  mb-2 md:mb-0">
                   <div className="flex items-center">
                     <img
                       className="w-1/5 h-1/5 mr-1"
@@ -125,7 +125,8 @@ const Installation = () => {
               <div className="flex items-center">
                 <button
                   onClick={() => handleUnInstall(p.id)}
-                  className="btn btn-primary bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
+                  className="btn btn-primary  bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-white"
+                  
                 >
                   Uninstall
                 </button>

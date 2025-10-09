@@ -4,6 +4,19 @@ import logo from "../../assets/logo.png";
 import githubLogo from "../../assets/Vector (1).png";
 
 const Navbar = () => {
+  const activeLinkStyle = `
+    relative font-semibold
+    text-transparent bg-clip-text 
+    bg-gradient-to-r from-[#632EE3] to-[#9F62F2]
+    after:content-[''] after:absolute after:left-0 after:-bottom-1
+    after:w-full after:h-[4px]
+    after:bg-gradient-to-r after:from-[#632EE3] after:to-[#9F62F2]
+  `;
+
+  const normalLinkStyle = `
+  text-gray-700 font-medium
+`;
+
   return (
     <div className="navbar bg-base-100 shadow-sm px-6 md:px-12">
       <div className="navbar-start">
@@ -30,13 +43,34 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <Link to="/">Home</Link>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? activeLinkStyle : normalLinkStyle
+                }
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/apps">Apps</Link>
+              <NavLink
+                to="/apps"
+                className={({ isActive }) =>
+                  isActive ? activeLinkStyle : normalLinkStyle
+                }
+              >
+                Apps
+              </NavLink>
             </li>
             <li>
-              <Link to="/installation">Installation</Link>
+              <NavLink
+                to="/installation"
+                className={({ isActive }) =>
+                  isActive ? activeLinkStyle : normalLinkStyle
+                }
+              >
+                Installation
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -50,13 +84,34 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : normalLinkStyle
+              }
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/apps">Apps</Link>
+            <NavLink
+              to="/apps"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : normalLinkStyle
+              }
+            >
+              Apps
+            </NavLink>
           </li>
           <li>
-            <Link to="/installation">Installation</Link>
+            <NavLink
+              to="/installation"
+              className={({ isActive }) =>
+                isActive ? activeLinkStyle : normalLinkStyle
+              }
+            >
+              Installation
+            </NavLink>
           </li>
         </ul>
       </div>
