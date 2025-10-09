@@ -13,7 +13,7 @@ const TrendingAppsCards = ({ app }) => {
           <img className="w-full object-cover" src={image} alt="Shoes" />
         </figure>
         <div className="m-4 mt-0">
-          <h2 className="card-title mb-3">{title}</h2>
+          <h2 className="card-title flex justify-center mb-3 mt-2">{title}</h2>
           <div className="flex justify-between">
             <div className="badge badge-outline">
               <img className="w-[12px] h-[12px]" src={iconDownload} alt="" />

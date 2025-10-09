@@ -79,10 +79,10 @@ const AppsDetails = () => {
         <figure className="h-[310px] w-[310px]">
           <img src={image} alt="image" />
         </figure>
-        <div className="card-body">
+        <div className="card-body ">
           <div className="border-b mb-4">
-            <h2 className="card-title">{title}</h2>
-            <p className="mb-3 pb-4 pt-1">Developed By : {companyName}</p>
+            <h2 className="card-title text-2xl">{title}</h2>
+            <p className="mb-3 pb-4 pt-1">Developed By : <span className="text-violet-800">{companyName}</span> </p>
           </div>
           <div className="flex md:gap-15 gap-10 lg:gap-30 my-2">
             <div>

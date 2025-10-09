@@ -5,15 +5,15 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white flex flex-col items-center justify-center p-10">
       <div className="w-full max-w-screen-xl flex items-center justify-between">
-        {/* Left: Logo */}
+        
         <div className="flex items-center gap-2">
           <img className="w-8 h-8" src={logo} alt="logo" />
           <h3 className="font-semibold text-lg">HERO.IO</h3>
         </div>
 
-        {/* Right: Social Icons */}
+
         <nav className="flex gap-4">
-          {/* Twitter */}
+          
           <a href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* YouTube */}
+          
           <a href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@ const Footer = () => {
             </svg>
           </a>
 
-          {/* Facebook */}
+          
           <a href="#">
             <svg
               xmlns="http://www.w3.org/2000/svg"
